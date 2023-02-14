@@ -3,10 +3,10 @@ kind: IstioOperator
 metadata:
   name: install
 spec:
-  hub: localhost:5000
-  tag: master
+  #hub: localhost:5000
+  #tag: master
   meshConfig:
-    accessLogFile: "/dev/stdout"
+    accessLogFile: ""
     defaultConfig:
       proxyMetadata:
         ISTIO_META_PROXY_XDS_VIA_AGENT: "true"
@@ -21,6 +21,9 @@ spec:
           - name: status-port
             port: 15021
             targetPort: 15021
+          - name: http2
+            port: 80
+            targetPort: 8080
           # Both HTTPS and HTTP/3 must have
           # the same port number. Here it
           # is 443/TCP and 443/UDP
@@ -40,6 +43,6 @@ spec:
         PILOT_ENABLE_QUIC_LISTENERS: true
     global:
       proxy:
-        logLevel: debug
+        logLevel: error
       logging:
-        level: debug
+        level: error
